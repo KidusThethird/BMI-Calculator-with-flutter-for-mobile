@@ -4,9 +4,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_content.dart';
 import 'reusable.dart';
 import 'constants.dart';
+import 'results_page.dart';
+import 'calculator_brain.dart';
+
 //import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //import 'font_awesome_package';
-//import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+//import 'package:font_awesome_flutter_flutter.darter/font_awesome';
 
 
 enum Gender {male, female}
@@ -48,7 +51,7 @@ class _InputPageState extends State<InputPage> {
                       });
                     },
                     mycolor: selectedGender==Gender.male ? kactivecolor : kinactivecolor ,
-                  cardChild: mywidget(IconText: "ወንድ", myIcon: FontAwesomeIcons.male ),
+                  cardChild: mywidget(IconText: "Male", myIcon: FontAwesomeIcons.male ),
                 ),),
               Expanded(
                 child:MyContainer(
@@ -182,11 +185,39 @@ class _InputPageState extends State<InputPage> {
               ),),
             ],
           )),
-          Container(
-            color:Color(0xFFA3A141),
-            margin: EdgeInsets.only(top: 10.0),
-            width: double.infinity,
-            height: bottomContainerHeight,
+          GestureDetector(
+            onTap: (){
+    print('calculat pressed');
+
+    CalculatorBrain calc= CalculatorBrain(height: height, weight: weight);
+
+    Navigator.push(context, MaterialPageRoute(
+        builder: (context) =>ReslutsPage(
+
+        bmiResult: calc.calcuateBMI(),
+        resultText: calc.getResult(),
+        interpritation: calc.getIneterpritation(),
+
+//            bmiResult: calc.calcuateBMI(),
+//            resultText: calc.getResult(),
+//
+//             interpritation: calc.getResult(),
+//
+//            return ReslutsPage();
+    ),
+    ),
+    );
+    }  ,
+
+
+            child: Container(
+              //alignment: MainAxisAlignment.center,
+              child: Center(child: Text('CALCULATE', style: kweightedText,)),
+              color:Color(0xFFA3A141),
+              margin: EdgeInsets.only(top: 10.0),
+              width: double.infinity,
+              height: bottomContainerHeight,
+            ),
           ),
         ],
       )
